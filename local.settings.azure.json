@@ -1,0 +1,13 @@
+{
+    "IsEncrypted": false,
+    "Values": {
+        "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+        "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+        "AZURE_CLIENT_ID": "SERVICE_PRINCIPAL_APP_ID",
+        "AZURE_CLIENT_SECRET": "SERVICE_PRINCIPAL_PASSWORD",
+        "AZURE_TENANT_ID": "SERVICE_PRINCIPAL_TENANT_ID",
+        "AZURE_STORAGE_HOST": "blob.core.windows.net",
+        "AZURE_STORAGE_ACCOUNT": "BLOB_STORAGE_ACCOUNT_NAME",
+        "AZURE_STORAGE_CONTAINER": "azfuncblobs"
+    }
+}
