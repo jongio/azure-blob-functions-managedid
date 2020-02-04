@@ -4,7 +4,7 @@
         "AzureWebJobsStorage": "UseDevelopmentStorage=true",
         "FUNCTIONS_WORKER_RUNTIME": "dotnet",
         "AZURE_STORAGE_HOST": "127.0.0.1:10000",
-        "AZURE_STORAGE_ACCOUNT": "devstorageaccount1",
+        "AZURE_STORAGE_ACCOUNT": "devstoreaccount1",
         "AZURE_STORAGE_CONTAINER": "azfuncblobs"
     }
 }

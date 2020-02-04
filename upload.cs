@@ -24,7 +24,7 @@ namespace azure_blob_functions_managedid
             var host = Environment.GetEnvironmentVariable("AZURE_STORAGE_HOST");
             var account = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUNT");
             var container = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONTAINER");
-            var emulator = connection.Contains("UseDevelopmentStorage=true") && account == "devstorageaccount1";
+            var emulator = connection.Contains("UseDevelopmentStorage=true") && account == "devstoreaccount1";
             var path = emulator ? $"https://{host}/{account}/{container}" : $"https://{account}.{host}/{container}";
 
             var content = Guid.NewGuid().ToString("n").Substring(0, 8);
