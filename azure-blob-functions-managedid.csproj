@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
     <RootNamespace>azure_blob_functions_managedid</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Azure.Identity" Version="1.1.0" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.2.0" />
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.1" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.3" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
