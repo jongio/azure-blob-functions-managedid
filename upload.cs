@@ -20,29 +20,28 @@ namespace azure_blob_functions_managedid
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            var connection = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
             var host = Environment.GetEnvironmentVariable("AZURE_STORAGE_HOST");
             var account = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUNT");
             var container = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONTAINER");
-            var emulator = connection.Contains("UseDevelopmentStorage=true") && account == "devstoreaccount1";
-            var path = emulator ? $"https://{host}/{account}/{container}" : $"https://{account}.{host}/{container}";
+            var emulator = account == "devstoreaccount1";
+            var uri = $"https://{(emulator ? $"{host}/{account}" : $"{account}.{host}")}/{container}";
 
+            // Generate random string for blob content and file name
             var content = Guid.NewGuid().ToString("n").Substring(0, 8);
             var file = $"{content}.txt";
 
-            // DefaultAzureCredential does not currently support HTTP endpoints, so we have to do this hack.  Hopefully it will soon.
-            // Use BlobContainerClient(connectionString, container) ctor for emulator and BlobContainerClient(uri, TokenCredential) for Azure
-            var client = emulator ?
-                new BlobContainerClient(connection, container) :
-                new BlobContainerClient(new Uri(path), new DefaultAzureCredential());
+            // For Azurite 3.7+ with HTTPS and OAuth enabled, you can run Azurite with the following
+            // azurite --oauth basic --cert cert-name.pem --key cert-name-key.pem
+            var client = new BlobContainerClient(new Uri(uri), new DefaultAzureCredential());
 
-
+            // Create container
             await client.CreateIfNotExistsAsync();
 
-            using (MemoryStream stream = new MemoryStream(Encoding.ASCII.GetBytes(content)))
-            {
-                await client.UploadBlobAsync(file, stream);
-            }
+            // Get content stream
+            using var stream = new MemoryStream(Encoding.ASCII.GetBytes(content));
+
+            // Upload blob
+            await client.UploadBlobAsync(file, stream);
 
             return (ActionResult)new OkObjectResult($"{file} uploaded.");
         }
